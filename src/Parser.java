@@ -44,9 +44,6 @@ public class Parser {
 					   }
 					   System.out.println("");
 				   }*/
-			  
-			 
-		
 			do{ 
 			  relationText = in.readLine();
 			  }while(relationText.contains("@data") || relationText.contains("%"));
@@ -99,7 +96,7 @@ public class Parser {
 	
 	public double calculate_gain(double entropy, int i){
 		double gain=0;
-		
+		double j=datas.size();
 		double counter=0;
 		for(String s: attributes.get(i).getStates()){
 			ArrayList <Integer>p = new  ArrayList<Integer>();
@@ -121,24 +118,14 @@ public class Parser {
 				}
 			}
 			for(Integer in:p){
-				System.out.print(in+" division ");
-			}
-			
-			System.out.print("\n");
-			System.out.print(" hay "+counter+" en "+s);
-			System.out.print("\n");
+				gain+=(((in/counter)*Math.log10(in/counter) / Math.log10(2.0)*-1))*(counter/j)*-1 ;
+				}
 			counter=0;
-			p = new  ArrayList<Integer>();
-			
-			
-			
-			//System.out.println(counter+"counter y j"+j);
-			//gain+=((counter/j)*Math.log10(counter/j) / Math.log10(2.0)*-1);		
+			p = new  ArrayList<Integer>();				
 		}
-		
+		gain=entropy+gain;
+		System.out.print(" hay "+gain+" total de "+entropy);
 		System.out.println("\n");
-		//System.out.println("counter "+counter);
-		//System.out.println("el gain de "+i+" es "+gain);
 		return gain;
 	}
 	
