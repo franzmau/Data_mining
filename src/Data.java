@@ -24,6 +24,8 @@ public class Data {
 	public String getLastAttribute(){
 		return this.Attributes.get(Attributes.size()-1);
 	}
-	
+	public String getAttribute(int index){
+		return this.Attributes.get(index);
+	}
 	
 }

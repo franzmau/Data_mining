@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.LinkedList;
 
 public class Parser {
 	public static InputReader in;
@@ -76,17 +77,69 @@ public class Parser {
 	}
 	
 	public void compute(){
-		double entropy=calculate_entropy();
+		double entropy;
+		//do{
+			entropy=calculate_entropy();
+		//System.out.print("entropy ="+entropy);
 		int  best_option=best_gain(entropy);
-
+		//}while(entropy>0);
 	}
 	
 	public int best_gain(double entropy){
 		double gain=entropy;
-		for (int i=0;i<attributes.size()-2;i++){
-			
+		int best=-1;
+		for (int i=0;i<attributes.size()-1;i++){
+		double	aux= calculate_gain(entropy,i);
+		if(aux>gain){
+			best=i;
 		}
-		return 0;
+		}
+		return best;
+	}
+	
+	public double calculate_gain(double entropy, int i){
+		double gain=0;
+		
+		double counter=0;
+		for(String s: attributes.get(i).getStates()){
+			ArrayList <Integer>p = new  ArrayList<Integer>();
+			ArrayList <String> l=new ArrayList<String>();
+			for(Data d:datas){		
+				
+				
+				if(d.getAttribute(i).equals(s)){
+					if(!l.contains(d.getLastAttribute())){
+						l.add(d.getLastAttribute());
+						p.add(1);
+					}else{
+						int index= l.indexOf(d.getLastAttribute());
+						int var=p.get(index)+1;
+				       p.remove(index);
+				      p.add(index,var );
+						}
+					counter++;
+				}
+			}
+			for(Integer in:p){
+				System.out.print(in+" division ");
+			}
+			
+			System.out.print("\n");
+			System.out.print(" hay "+counter+" en "+s);
+			System.out.print("\n");
+			counter=0;
+			p = new  ArrayList<Integer>();
+			
+			
+			
+			//System.out.println(counter+"counter y j"+j);
+			//gain+=((counter/j)*Math.log10(counter/j) / Math.log10(2.0)*-1);		
+		}
+		
+		System.out.println("\n");
+		//System.out.println("counter "+counter);
+		//System.out.println("el gain de "+i+" es "+gain);
+		return gain;
 	}
 	
 	public double calculate_entropy(){
