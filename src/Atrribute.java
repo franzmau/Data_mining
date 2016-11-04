@@ -29,8 +29,7 @@ public class Atrribute {
 		return this.name;
 	}
 	
-	
-	
+
 	
 	
 }
