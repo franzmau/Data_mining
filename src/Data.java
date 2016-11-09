@@ -10,6 +10,15 @@ public class Data {
 		this.id=id;
 		Attributes= new ArrayList<String>();
 	}
+	
+	public Data(Data data){
+		this.id = data.id;
+		Attributes= new ArrayList<String>();
+		for(int i = 0; i < data.getAttibutes().size(); i++){
+			this.Attributes.add(data.getAttibutes().get(i));
+		}
+	}
+	
 	public void addAttributes(String s){
 		Attributes.add(s);
 	}

@@ -9,7 +9,8 @@ public class main {
 
 		parser.readAttributes();
 
-		parser.compute();
+
+		parser.generateTree();
 
 	}
 
