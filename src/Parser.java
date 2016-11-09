@@ -115,7 +115,7 @@ public class Parser {
 		for(String s: attributes.get(i).getStates()){
 			ArrayList <Integer>p = new  ArrayList<Integer>();
 			ArrayList <String> l=new ArrayList<String>();
-			for(Data d:datas){		
+			for(Data d:data_tree){		
 				
 				
 				if(d.getAttribute(i).equals(s)){
@@ -148,7 +148,7 @@ public class Parser {
 		double i=0;
 		
 			for (String s :this.attributes.get(attributes.size()-1).getStates()){
-				for (Data d: this.datas){
+				for (Data d: data_tree){
 					if(d.getLastAttribute().equals(s)){
 						i++;
 					}
@@ -161,22 +161,35 @@ public class Parser {
 		return frequency;
 	}
 	
+	public String first = "";
+	
 	public void do_decisionTree(TablesStructure decision_table, int index, String value, Queue<String> tabs) {
 		int divider_index = compute(decision_table);
 		if(divider_index == -1){ //Pure table obtained
-			tabs.add("1");
-			while(!tabs.poll().equals("1") ){
+			for(int j = 0; j < tabs.size(); j++){
 				System.out.print("\t");
 			}
+			
+			tabs.poll();
 			System.out.println("ANSWER: " + decision_table.getArrayList().get(0).getLastAttribute());
 		} else {
 			ArrayList<String> values = decision_table.getAttributes(divider_index);
+			
 			for(int i = 0; i < values.size(); i++){
 				Atrribute cur_attribute = attributes.get(divider_index);
+				
+				if(cur_attribute.getName().equals(first)){
+					while(!tabs.isEmpty()){
+						tabs.poll();
+					}
+				}
 				for(int j = 0; j < tabs.size(); j++){
 					System.out.print("\t");
 				}
 				System.out.println(cur_attribute.getName() + ": " + values.get(i));
+				if(first.isEmpty()){
+					first = cur_attribute.getName();
+				}
 				tabs.add("\t");
 				TablesStructure decision_subTable = decision_table.getSubtable(divider_index, values.get(i));
 				do_decisionTree(decision_subTable, divider_index, values.get(i), tabs);
