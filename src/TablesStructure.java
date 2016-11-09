@@ -6,22 +6,44 @@ import java.util.Hashtable;
 import java.util.Stack;
 
 public class TablesStructure {
-	private ArrayList <Data> PureTable;
-	private ArrayList <Attribute> Divider;
+	private ArrayList<Data> table;
 	
-	public TablesStructure() {
-		PureTable = new ArrayList <Data>();
-		Divider = new ArrayList <Attribute>();
+	public TablesStructure(){
+		this.table = new ArrayList<Data>();
 	}
 	
-	public TablesStructure(ArrayList <Data> PureTable, ArrayList <Attribute> Divider){
-		this.PureTable = PureTable;
-		this.Divider = Divider;
+	private TablesStructure(ArrayList<Data> table){
+		this.table = new ArrayList<Data>();
+		for(int i = 0; i < table.size(); i++){
+			Data data = new Data(table.get(i));
+			this.table.add(data);
+		}
 	}
 	
-	public TablesStructure(ArrayList <Attribute> Divider){
-		PureTable = ArrayList <Data>();
-		this.Divider = Divider;
+	public ArrayList<String> getAttributes(int index){
+		ArrayList<String> output = new ArrayList<String>();
+		for(int i = 0; i < this.table.size(); i++){
+			String actualString = this.table.get(i).getAttribute(index);
+			if(!output.contains(actualString)){
+				output.add(actualString);
+			}
+		}
+		return output;
+	}
+	
+	public ArrayList<Data> getArrayList(){
+		return this.table;
+	}
+	
+	public TablesStructure getSubtable(int index, String value){
+		ArrayList<Data> trimmedData = new ArrayList<Data>();
+		for(int i = 0; i < this.table.size(); i++){
+			String actualString = this.table.get(i).getAttribute(index);
+			if(actualString.contains(value)){
+				trimmedData.add(this.table.get(i));
+			}
+		}
+		return new TablesStructure(trimmedData);
 	}
 	
 }

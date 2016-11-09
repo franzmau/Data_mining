@@ -75,11 +75,10 @@ public class Parser {
 	
 	public void compute(){
 		double entropy;
-		//do{
-			entropy=calculate_entropy();
-		//System.out.print("entropy ="+entropy);
+		
+		entropy=calculate_entropy();
 		int  best_option=best_gain(entropy);
-		//}while(entropy>0);
+		
 	}
 	
 	public int best_gain(double entropy){
