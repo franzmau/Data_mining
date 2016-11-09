@@ -7,20 +7,20 @@ import java.util.Stack;
 
 public class TablesStructure {
 	private ArrayList <Data> PureTable;
-	private ArrayList <Attribute> Divider;
+	private ArrayList <Atrribute> Divider;
 	
 	public TablesStructure() {
 		PureTable = new ArrayList <Data>();
-		Divider = new ArrayList <Attribute>();
+		Divider = new ArrayList <Atrribute>();
 	}
 	
-	public TablesStructure(ArrayList <Data> PureTable, ArrayList <Attribute> Divider){
+	public TablesStructure(ArrayList <Data> PureTable, ArrayList <Atrribute> Divider){
 		this.PureTable = PureTable;
 		this.Divider = Divider;
 	}
 	
-	public TablesStructure(ArrayList <Attribute> Divider){
-		PureTable = ArrayList <Data>();
+	public TablesStructure(ArrayList <Atrribute> Divider){
+		PureTable = new  ArrayList <Data>();
 		this.Divider = Divider;
 	}
 	
