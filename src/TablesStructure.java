@@ -12,7 +12,7 @@ public class TablesStructure {
 		this.table = new ArrayList<Data>();
 	}
 	
-	private TablesStructure(ArrayList<Data> table){
+	public TablesStructure(ArrayList<Data> table){
 		this.table = new ArrayList<Data>();
 		for(int i = 0; i < table.size(); i++){
 			Data data = new Data(table.get(i));
