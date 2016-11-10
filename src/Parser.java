@@ -51,9 +51,10 @@ public class Parser {
 				   }*/
 			do{ 
 			  relationText = in.readLine();
-			  }while(relationText.contains("@data") || relationText.contains("%"));
+			  }while(!relationText.contains("@data") || relationText.contains("%"));
 			
 			int count=0;
+                        relationText = in.readLine();
 			String data=relationText;
 			do{
 				 String[] spliteddata = data.split(",");
@@ -88,6 +89,9 @@ public class Parser {
 		//System.out.print("entropy ="+entropy);
 		int  best_option=best_gain(entropy, table_to_calculate);
 		//}while(entropy>0);
+                if(entropy != 0 && best_option == -1){
+                    return -2;
+                }
 		return best_option;
 	}
 	
@@ -135,8 +139,10 @@ public class Parser {
 				}
 			}
 			for(Integer in:p){
-				gain+=(((in/counter)*Math.log10(in/counter) / Math.log10(2.0)*-1))*(counter/j)*-1 ;
+                                if(in != 0){
+				gain+=(((in/counter)*Math.log10(in/counter) / Math.log10(2.0)))*(counter/j) ;
 				}
+                        }
 			counter=0;
 			p = new  ArrayList<Integer>();				
 		}
@@ -168,7 +174,8 @@ public class Parser {
 	public String first = "";
 	
 	public void do_decisionTree(TablesStructure decision_table, int index, String value, Queue<String> tabs) {
-		int divider_index = compute(decision_table);
+
+            int divider_index = compute(decision_table);
 		if(divider_index == -1){ //Pure table obtained
 			for(int j = 0; j < tabs.size(); j++){
 				System.out.print("  ");
@@ -176,7 +183,16 @@ public class Parser {
 			
 			tabs.poll();
 			System.out.println("ANSWER: " + decision_table.getArrayList().get(0).getLastAttribute());
-		} else {
+		} else if(divider_index == -2){
+                        for(int j = 0; j < tabs.size(); j++){
+				System.out.print("  ");
+			}
+                        if(tabs.size() > 0){
+                                tabs.poll();
+                        }
+                        System.out.println("No division gives a gain in information!");
+                        
+                } else {
 			ArrayList<String> values = decision_table.getAttributes(divider_index,attributes.get(divider_index).getStates());
 			
 			for(int i = 0; i < values.size(); i++){
@@ -187,18 +203,24 @@ public class Parser {
 						tabs.poll();
 					}
 				}
-				for(int j = 0; j < tabs.size(); j++){
+                                
+                                int limit = tabs.size();
+				for(int j = 0; j < limit; j++){
 					System.out.print("  ");
 				}
 				System.out.println(cur_attribute.getName() + ": " + values.get(i));
 				if(first.isEmpty()){
 					first = cur_attribute.getName();
 				}
-				tabs.add("  ");
+                                    tabs.add("  ");
+                                /*if(i == limit){
+                                    tabs.poll();
+                                }*/
 				TablesStructure decision_subTable = decision_table.getSubtable(divider_index, values.get(i));
 				do_decisionTree(decision_subTable, divider_index, values.get(i), tabs);
 				
 			}
+                        tabs.poll();
 		}
 		
 	}
