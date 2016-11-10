@@ -18,10 +18,10 @@ public class Parser {
 		attributes = new ArrayList<Atrribute>();
 		datas=new ArrayList<Data>();
 		String relationText;
-		System.out.println("\n1dada");
+		
 			do{ 
 				relationText = in.readLine();
-				System.out.println("\n2dada");
+			
 			}while(!relationText.contains("@relation"));
 			
 		  relationText=in.readLine();
