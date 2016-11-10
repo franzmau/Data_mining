@@ -18,9 +18,12 @@ public class Parser {
 		attributes = new ArrayList<Atrribute>();
 		datas=new ArrayList<Data>();
 		String relationText;
+		System.out.println("\n1dada");
 			do{ 
 				relationText = in.readLine();
+				System.out.println("\n2dada");
 			}while(!relationText.contains("@relation"));
+			
 		  relationText=in.readLine();
 		  String attributesText;
 		 
@@ -153,8 +156,9 @@ public class Parser {
 						i++;
 					}
 				}
+				if(i!=0){
 				frequency+=((i/acum)*Math.log10(i/acum) / Math.log10(2.0)*-1);
-				
+				}
 				i=0;
 			}
 		
@@ -167,13 +171,13 @@ public class Parser {
 		int divider_index = compute(decision_table);
 		if(divider_index == -1){ //Pure table obtained
 			for(int j = 0; j < tabs.size(); j++){
-				System.out.print("\t");
+				System.out.print("  ");
 			}
 			
 			tabs.poll();
 			System.out.println("ANSWER: " + decision_table.getArrayList().get(0).getLastAttribute());
 		} else {
-			ArrayList<String> values = decision_table.getAttributes(divider_index);
+			ArrayList<String> values = decision_table.getAttributes(divider_index,attributes.get(divider_index).getStates());
 			
 			for(int i = 0; i < values.size(); i++){
 				Atrribute cur_attribute = attributes.get(divider_index);
@@ -184,13 +188,13 @@ public class Parser {
 					}
 				}
 				for(int j = 0; j < tabs.size(); j++){
-					System.out.print("\t");
+					System.out.print("  ");
 				}
 				System.out.println(cur_attribute.getName() + ": " + values.get(i));
 				if(first.isEmpty()){
 					first = cur_attribute.getName();
 				}
-				tabs.add("\t");
+				tabs.add("  ");
 				TablesStructure decision_subTable = decision_table.getSubtable(divider_index, values.get(i));
 				do_decisionTree(decision_subTable, divider_index, values.get(i), tabs);
 				

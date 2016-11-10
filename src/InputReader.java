@@ -18,7 +18,7 @@ import java.util.InputMismatchException;
 
         public int read()
         {
-
+        	
             if (numChars == -1)
                 throw new InputMismatchException();
             if (curChar >= numChars)
@@ -77,7 +77,7 @@ import java.util.InputMismatchException;
         }
         
         public String readLine()
-        {
+        {	
         	int c = read();
             StringBuilder res = new StringBuilder();
             while (c != '\n' && c  >= 0)

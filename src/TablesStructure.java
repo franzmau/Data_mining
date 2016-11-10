@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Hashtable;
@@ -20,13 +21,25 @@ public class TablesStructure {
 		}
 	}
 	
-	public ArrayList<String> getAttributes(int index){
-		ArrayList<String> output = new ArrayList<String>();
+	public ArrayList<String> getAttributes(int index, ArrayList<String> OldValues){
+		ArrayList<String> output = new ArrayList<String>();		
+		 int counter []=new int [OldValues.size()];
+		for(int i = 0; i < OldValues.size(); i++){
+			output.add(OldValues.get(i));
+			counter[i]=0;
+		}
 		for(int i = 0; i < this.table.size(); i++){
 			String actualString = this.table.get(i).getAttribute(index);
-			if(!output.contains(actualString)){
-				output.add(actualString);
+				int old_index = OldValues.indexOf(actualString);
+				if(old_index != -1){
+					counter[old_index]+=1;
+				}
+		}
+		for(int i=0; i < OldValues.size(); i++){
+			if(counter[i] == 0){
+				output.remove(output.indexOf(OldValues.get(i)));
 			}
+			
 		}
 		return output;
 	}
@@ -39,7 +52,7 @@ public class TablesStructure {
 		ArrayList<Data> trimmedData = new ArrayList<Data>();
 		for(int i = 0; i < this.table.size(); i++){
 			String actualString = this.table.get(i).getAttribute(index);
-			if(actualString.contains(value)){
+			if(actualString.equals(value)){
 				trimmedData.add(this.table.get(i));
 			}
 		}
