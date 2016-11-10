@@ -9,9 +9,12 @@ public class main {
 
 		parser.readAttributes();
 
-
+		try{
 		parser.generateTree();
-
+		}
+		catch (Exception e){
+			System.out.print("Error, It can't be solved");
+		}
 	}
 
 }
