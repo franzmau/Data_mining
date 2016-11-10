@@ -18,6 +18,7 @@ import java.util.InputMismatchException;
 
         public int read()
         {
+
             if (numChars == -1)
                 throw new InputMismatchException();
             if (curChar >= numChars)
@@ -77,12 +78,9 @@ import java.util.InputMismatchException;
         
         public String readLine()
         {
-            int c = read();
-            if(c==0){
-            	return "";
-            }
+        	int c = read();
             StringBuilder res = new StringBuilder();
-            while (c != '\n')
+            while (c != '\n' && c  >= 0)
             {
                 res.appendCodePoint(c);
                 c = read();
