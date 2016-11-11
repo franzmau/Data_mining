@@ -13,6 +13,7 @@ public class main {
 		parser.generateTree();
 		}
 		catch (Exception e){
+			e.printStackTrace();
 			System.out.print("Error, It can't be solved");
 		}
 	}
